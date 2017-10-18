@@ -13,21 +13,29 @@ namespace Event_logging_1
 
     public class Order
     {
-        public UInt64 Id { get; set; }
+        private event Action<Order, OrderType> OnAdd = (x, y) => {};
+
+        public ulong Id { get; set; }
 
         public string JuridicalPerson { get; set; }
 
         private double Cost { get; set; }
 
-        public Order(UInt64 id, string jurPerson)
+        public Order(ulong id, string jurPerson)
         {
             Id = id;
             JuridicalPerson = jurPerson;
             Cost = 0;
         }
 
+        public void SubscriveOnAddPosition(Action<Order, OrderType> addAction)
+        {
+            OnAdd += addAction;
+        }
+
         public void AddPosition(OrderType type)
         {
+            OnAdd(this, type);
             Cost += OrderTypeCostMapper.GetCost[type];
         }
     }
