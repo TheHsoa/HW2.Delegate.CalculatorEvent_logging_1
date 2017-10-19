@@ -28,15 +28,15 @@ namespace Event_logging_1
             Cost = 0;
         }
 
-        public void SubscriveOnAddPosition(Action<Order, OrderType> addAction)
+        public void SubscribeOnAddPosition(Action<Order, OrderType> addAction)
         {
             OnAdd += addAction;
         }
 
         public void AddPosition(OrderType type)
         {
-            OnAdd(this, type);
             Cost += OrderTypeCostMapper.GetCost[type];
+            OnAdd(this, type);
         }
     }
 }
