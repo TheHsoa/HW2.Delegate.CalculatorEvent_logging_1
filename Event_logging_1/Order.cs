@@ -15,6 +15,11 @@
     {
         public event AddPositionEventHandler AddOrderPositionEvent;
 
+        protected virtual void OnRaiseAddPositionEvent(OrderEventArgs e)
+        {
+            AddOrderPositionEvent?.Invoke(this, e);
+        }
+
         public ulong Id { get; set; }
 
         public string JuridicalPerson { get; set; }
@@ -31,7 +36,8 @@
         public void AddPosition(OrderType type)
         {
             Cost += OrderTypeCostMapper.GetCost[type];
-            AddOrderPositionEvent?.Invoke(this, new OrderEventArgs(type));
+
+            OnRaiseAddPositionEvent(new OrderEventArgs(type));
         }
     }
 }
