@@ -6,8 +6,8 @@
         {
             var someOrder = new Order(1, "McDonalds");
 
-            someOrder.SubscribeOnAddPosition((x, y) => System.Console.WriteLine($"Added new position {y} to order with id = {x.Id} and JuridicalPerson = {x.JuridicalPerson}"));
-            
+            var orderSubscriber = new OrderEventSubscriber(someOrder);
+
             someOrder.AddPosition(OrderType.Banner);
 
             System.Console.ReadKey();

@@ -41,7 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="OrderEventArgs.cs" />
     <Compile Include="Order.cs" />
+    <Compile Include="OrderEventSubscriber.cs" />
     <Compile Include="OrderTypeCostMapper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

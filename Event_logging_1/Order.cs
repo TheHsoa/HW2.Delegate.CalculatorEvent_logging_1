@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Event_logging_1
+﻿namespace Event_logging_1
 {
     public enum OrderType
     {
@@ -11,9 +9,11 @@ namespace Event_logging_1
         AdsInOtherCompany,
     }
 
+    public delegate void AddPositionEventHandler(Order sender, OrderEventArgs e);
+
     public class Order
     {
-        private event Action<Order, OrderType> OnAdd = (x, y) => {};
+        public event AddPositionEventHandler AddOrderPositionEvent;
 
         public ulong Id { get; set; }
 
@@ -28,15 +28,10 @@ namespace Event_logging_1
             Cost = 0;
         }
 
-        public void SubscribeOnAddPosition(Action<Order, OrderType> addAction)
-        {
-            OnAdd += addAction;
-        }
-
         public void AddPosition(OrderType type)
         {
             Cost += OrderTypeCostMapper.GetCost[type];
-            OnAdd(this, type);
+            AddOrderPositionEvent?.Invoke(this, new OrderEventArgs(type));
         }
     }
 }
