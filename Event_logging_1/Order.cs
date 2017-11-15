@@ -1,4 +1,6 @@
-﻿namespace Event_logging_1
+﻿using System;
+
+namespace Event_logging_1
 {
     public enum OrderType
     {
@@ -9,11 +11,9 @@
         AdsInOtherCompany,
     }
 
-    public delegate void AddPositionEventHandler(Order sender, OrderEventArgs e);
-
     public class Order
     {
-        public event AddPositionEventHandler AddOrderPositionEvent;
+        public event EventHandler<OrderEventArgs> AddOrderPositionEvent;
 
         protected virtual void OnRaiseAddPositionEvent(OrderEventArgs e)
         {
