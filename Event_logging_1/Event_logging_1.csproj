@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="OrderEventArgs.cs" />
     <Compile Include="Order.cs" />
     <Compile Include="OrderTypeCostMapper.cs" />
     <Compile Include="Program.cs" />

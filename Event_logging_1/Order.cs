@@ -13,13 +13,20 @@ namespace Event_logging_1
 
     public class Order
     {
-        public UInt64 Id { get; set; }
+        public event EventHandler<OrderEventArgs> AddOrderPositionEvent;
+
+        protected virtual void OnRaiseAddPositionEvent(OrderEventArgs e)
+        {
+            AddOrderPositionEvent?.Invoke(this, e);
+        }
+
+        public ulong Id { get; set; }
 
         public string JuridicalPerson { get; set; }
 
         private double Cost { get; set; }
 
-        public Order(UInt64 id, string jurPerson)
+        public Order(ulong id, string jurPerson)
         {
             Id = id;
             JuridicalPerson = jurPerson;
@@ -29,6 +36,8 @@ namespace Event_logging_1
         public void AddPosition(OrderType type)
         {
             Cost += OrderTypeCostMapper.GetCost[type];
+
+            OnRaiseAddPositionEvent(new OrderEventArgs(type));
         }
     }
 }

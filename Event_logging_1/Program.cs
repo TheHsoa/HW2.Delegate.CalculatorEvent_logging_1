@@ -1,15 +1,18 @@
 ﻿using System;
-using System.Security.Cryptography.X509Certificates;
 
 namespace Event_logging_1
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main()
         {
             var someOrder = new Order(1, "McDonalds");
 
+            someOrder.AddOrderPositionEvent += (sender, e) => Console.WriteLine($"Added new position {e.OrderType} to order with id = {((Order)sender).Id} and JuridicalPerson = {((Order)sender).JuridicalPerson}");
+
             someOrder.AddPosition(OrderType.Banner);
+
+            Console.ReadKey();
         }
     }
 }
